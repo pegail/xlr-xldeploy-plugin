@@ -140,6 +140,18 @@
         <property name="packageIds" category="output" kind="list_of_string" label="Package IDs"/>
     </type>
     
+    <type type="xldeploy.GetAllEnvsTask" label="XL Deploy: Get all environments" extends="xldeploy.Task"
+          description="Finds all Environments available in XL Deploy">
+        <property name="scriptLocation" default="xlr_xldeploy/getAllEnvsTask.py" hidden="true"/>
+        <property name="environmentId" category="input" label="Environment ID" required="true"/>
+        <property name="stripEnvironments" category="input" kind="boolean" />
+        <property name="getChild" category="input" label="Get Childs" kind="boolean" />
+        <property name="throwOnFail" category="input" kind="boolean" label="Throw on Fail"
+                  description="If True, the Task will fail if the CI doesn't exist" default="false"/>
+
+        <property name="environmentIds" category="output" kind="list_of_string" label="Environment IDs"/>
+    </type>
+
     <type type="xldeploy.GetCITask" extends="xldeploy.Task" label="XL Deploy: Get CI" description="Gets a CI XML from XL Deploy">
         <property name="scriptLocation" default="xlr_xldeploy/getCITask.py" hidden="true" />
         <property name="ciID" category="input" label="CI ID" required="true"/>
