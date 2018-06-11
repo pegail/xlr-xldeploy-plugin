@@ -15,7 +15,7 @@ xld_client = XLDeployClientUtil.create_xldeploy_client(xldeployServer, username,
 try:
     response = xld_client.check_ci_exist(environmentId)
 except:
-	response = False
+    response = False
 
 if throwOnFail and not response:
 	raise Exception(environmentId + " does not exist")

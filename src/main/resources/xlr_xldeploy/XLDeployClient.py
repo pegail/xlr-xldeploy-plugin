@@ -338,8 +338,8 @@ class XLDeployClient(object):
             all_env.append(item.attrib['ref'])
         if getChild:
             all_dir = self.get_all_directory(environment_id)
-            for dir in all_dir:
-                all_env.extend(self.get_all_environment(dir, getChild))
+            for curr_dir in all_dir:
+                all_env.extend(self.get_all_environment(curr_dir, getChild))
         return all_env
 
     def get_latest_deployed_version(self, environment_id, application_name):
