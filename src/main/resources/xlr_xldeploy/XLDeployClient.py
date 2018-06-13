@@ -316,16 +316,28 @@ class XLDeployClient(object):
         all_dir = list()
         for item in items:
             all_dir.append(item.attrib['ref'])
+        query_task = "/deployit/repository/query?parent=%s&type=udm.Application&resultsPerPage=-1" % directory_id
+        query_task_response = self.http_request.get(query_task, contentType='application/xml')
+        root = ET.fromstring(query_task_response.getResponse())
+        items = root.findall('ci')
+        for item in items:
+            all_dir.append(item.attrib['ref'])
         return all_dir
 
-    def get_all_package_version(self, application_id):
+    def get_all_package_version(self, application_id, getChild, deploymentPackage):
         query_task = "/deployit/repository/query?parent=%s&resultsPerPage=-1" % application_id
+        if deploymentPackage:
+            query_task = "/deployit/repository/query?parent=%s&type=udm.DeploymentPackage&resultsPerPage=-1" % application_id
         query_task_response = self.http_request.get(query_task, contentType='application/xml')
         root = ET.fromstring(query_task_response.getResponse())
         items = root.findall('ci')
         all_package = list()
         for item in items:
             all_package.append(item.attrib['ref'])
+        if getChild:
+            all_dir = self.get_all_directory(application_id)
+            for curr_dir in all_dir:
+                all_package.extend(self.get_all_package_version(curr_dir, getChild, deploymentPackage))
         return all_package
 
     def get_all_environment(self, environment_id, getChild):

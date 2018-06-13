@@ -20,7 +20,7 @@ except:
 if throwOnFail and not response:
 	raise Exception(applicationId + " does not exist")
 
-packageIds = xld_client.get_all_package_version(applicationId)
+packageIds = xld_client.get_all_package_version(applicationId, getChild, deploymentPackage)
 
 if stripApplications:
     packageIds = [version.partition('/')[2] for version in packageIds]
