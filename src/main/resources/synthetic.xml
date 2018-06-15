@@ -135,6 +135,7 @@
         <property name="applicationId" category="input" label="Application ID" required="true"/>
         <property name="stripApplications" category="input" kind="boolean" description="Remove the 'Applications' string returned"/>
         <property name="getChild" category="input" label="Get Childs" kind="boolean" description="Search for packages recursively"/>
+        <property name="applicationPackage" category="input" label="Only Application Packages" kind="boolean" description="Return only Application Packages"/>
         <property name="deploymentPackage" category="input" label="Only Deployment Packages" kind="boolean" description="Return only Deployment Packages"/>
         <property name="throwOnFail" category="input" kind="boolean" label="Throw on Fail"
                   description="If True, the Task will fail if the CI doesn't exist" default="false"/>
