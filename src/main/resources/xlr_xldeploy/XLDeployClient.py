@@ -312,7 +312,7 @@ class XLDeployClient(object):
             response.status, response.response))
 
     def get_latest_package_version(self, application_id):
-        query_task = "/deployit/repository/query?parent=%s&resultsPerPage=-1" % application_id
+        query_task = "/deployit/repository/query?parent=%s" % application_id
         query_task_response = self.http_request.get(query_task, contentType='application/xml')
         root = ET.fromstring(query_task_response.getResponse())
         items = root.findall('ci')
@@ -325,7 +325,7 @@ class XLDeployClient(object):
         return latest_package
 
     def get_all_package_version(self, application_id):
-        query_task = "/deployit/repository/query?parent=%s&resultsPerPage=-1" % application_id
+        query_task = "/deployit/repository/query?parent=%s" % application_id
         query_task_response = self.http_request.get(query_task, contentType='application/xml')
         root = ET.fromstring(query_task_response.getResponse())
         items = root.findall('ci')
