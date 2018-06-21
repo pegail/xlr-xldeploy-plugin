@@ -11,6 +11,7 @@
 import ast
 import json
 import time
+import re
 from xlrelease.HttpRequest import HttpRequest
 from xml.etree import ElementTree as ET
 
@@ -105,6 +106,18 @@ def add_orchestrators(deployment_xml, orchestrators):
 def check_response(response, message):
     if not response.isSuccessful():
         raise Exception(message)
+
+
+# Both functions bellow are used to sort a list containing strings and numbers
+def atof(text):
+    try:
+        retval = float(text)
+    except ValueError:
+        retval = text
+    return retval
+
+def natural_keys(text):
+    return [ atof(c) for c in re.split('(\d+)', text) ]
 
 
 class XLDeployClient(object):
@@ -304,8 +317,11 @@ class XLDeployClient(object):
         root = ET.fromstring(query_task_response.getResponse())
         items = root.findall('ci')
         latest_package = ''
-        if len(items) > 0:
-            latest_package = items[-1].attrib['ref']
+        all_package = list()
+        for item in items:
+            all_package.append(item.attrib['ref'])
+        all_package.sort(key=natural_keys)
+        latest_package = all_package[-1]
         return latest_package
 
     def get_all_package_version(self, application_id):
