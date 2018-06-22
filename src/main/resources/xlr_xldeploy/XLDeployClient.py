@@ -320,8 +320,9 @@ class XLDeployClient(object):
         all_package = list()
         for item in items:
             all_package.append(item.attrib['ref'])
-        all_package.sort(key=natural_keys)
-        latest_package = all_package[-1]
+        if all_package:
+            all_package.sort(key=natural_keys)
+            latest_package = all_package[-1]
         return latest_package
 
     def get_all_package_version(self, application_id):
